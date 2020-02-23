@@ -1,8 +1,3 @@
-var config = {
-  width: 800,
-  height: 600,
-  backgroundColor: 0xff00ff,
-  parent: "phaser-container"
-}
+import config from './config.js';
 
 var game = new Phaser.Game(config);
