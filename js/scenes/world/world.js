@@ -9,10 +9,44 @@ class World extends Phaser.Scene {
     this.tileScale = 3;
     this.tileSize = 16;
     this.tileSizeScaled = this.tileSize * this.tileScale;
+
+    this.characterFrameSize = 32;
+    this.characterFrameRate = 4;
   }
 
   preload() {
     this.loadTileImages("./assets/map/tiles/sprites/");
+
+    this.load.spritesheet(
+      "character",
+      "./assets/character/sprites/character_sheet_01.png",
+      {
+        frameWidth: this.characterFrameSize,
+        frameHeight: this.characterFrameSize
+      }
+    );
+  }
+
+  create() {
+    console.log("Creating World scene.");
+    this.initBackground();
+    this.initPlayer();
+    this.input.on("pointerdown", (pointer) => this.movePlayer(pointer.x, pointer.y));
+  }
+
+  update() {
+    // what is the position of the center of the screen
+    // what are the row/column coordinates of that position
+    // how many cols should be loaded to each side of that column coordinate?
+    // how many rows should be loaded above and below that row coordinate?
+
+    // add new tiles when you need them
+    // remove old tiles that you don't need anymore
+  }
+
+  movePlayer(x, y) {
+    this.player.x = x;
+    this.player.y = y;
   }
 
   loadTileImages(dir) {
@@ -54,11 +88,11 @@ class World extends Phaser.Scene {
     return key;
   }
 
-  create() {
-    console.log("Creating World scene.");
+  initBackground() {
+    const size = 20;
 
-    for (let x = 0; x < 5; x++) {
-      for (let y = 0; y < 5; y++) {
+    for (let x = 0; x < size; x++) {
+      for (let y = 0; y < size; y++) {
         this.addTileImage(x, y);
       }
     }
@@ -69,14 +103,38 @@ class World extends Phaser.Scene {
     // this.addTileImage(3, 0, "flowers");
   }
 
-  update() {
-    // what is the position of the center of the screen
-    // what are the row/column coordinates of that position
-    // how many cols should be loaded to each side of that column coordinate?
-    // how many rows should be loaded above and below that row coordinate?
+  initPlayer() {
+    this.createPlayerSprite();
+    this.createPlayerAnims();
+    this.player.anims.play("frontIdle", true);
+  }
 
-    // add new tiles when you need them
-    // remove old tiles that you don't need anymore
+  createPlayerSprite() {
+    this.player = this.physics.add.sprite(400, 300, "character");
+    this.player.setScale(this.tileScale);
+  }
+
+  createPlayerAnims() {
+    this.createPlayerAnim("frontIdle", "character", 0);
+    this.createPlayerAnim("rearIdle", "character", 2);
+    this.createPlayerAnim("walkDown", "character", 4);
+    this.createPlayerAnim("walkUp", "character", 6);
+    this.createPlayerAnim("walkLeft", "character", 8);
+    this.createPlayerAnim("walkRight", "character", 10);
+  }
+
+  createPlayerAnim(animKey, sheetKey, startFrame) {
+    this.anims.create({
+      key: animKey,
+      frames: this.anims.generateFrameNumbers(
+        sheetKey,
+        {
+          frames: [startFrame, startFrame + 1]
+        }
+      ),
+      frameRate: this.characterFrameRate,
+      repeat: -1
+    });
   }
 }
 
