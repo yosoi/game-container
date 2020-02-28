@@ -1,5 +1,6 @@
 import createPlayer from './player/create.js'
 import movePlayer from './player/move.js'
+import preloadMessageAssets from './messages/preload.js'
 import preloadPlayerAssets from './player/preload.js'
 import touchOther from './player/touch_other.js'
 import touchSelf from './player/touch_self.js'
@@ -9,19 +10,17 @@ class World extends Phaser.Scene {
     super({
       key: "World"
     });
-
-    this.playerScale = 3;
-    this.playerSheetKey = "player";
   }
 
   preload() {
     preloadPlayerAssets(this);
+    preloadMessageAssets(this);
   }
 
   create() {
     this.me = createPlayer(
-      (pointer, localX, localY, event, player) => {
-        touchSelf();
+      (pointer, localX, localY, event, player, scene) => {
+        touchSelf(player, this);
       },
       this
     );
