@@ -13,7 +13,7 @@ export default [
   },
   {
     "key": "rearWalk",
-    "start": 8
+    "start": 6
   },
   {
     "key": "rightWalk",
@@ -21,6 +21,6 @@ export default [
   },
   {
     "key": "leftWalk",
-    "start": 6
+    "start": 8
   },
 ];
