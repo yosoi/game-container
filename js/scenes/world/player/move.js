@@ -9,10 +9,8 @@ export default function(player, x, y, scene) {
   const moveDuration = (distance / pixelsPerSecond) * 1000;
   let animKey = "";
   if (distanceX >= distanceY) {
-    console.log("horizontal");
     animKey = player.x >= x ? "leftWalk" : "rightWalk";
   } else {
-    console.log("vertical");
     animKey = player.y >= y ? "rearWalk" : "frontWalk";
   }
   player.anims.play(animKey);

@@ -3,7 +3,6 @@ import movePlayer from './player/move.js'
 import preloadPlayerAssets from './player/preload.js'
 import touchOther from './player/touch_other.js'
 import touchSelf from './player/touch_self.js'
-import updatePlayer from './player/update.js'
 
 class World extends Phaser.Scene {
   constructor() {
@@ -30,12 +29,6 @@ class World extends Phaser.Scene {
     this.input.on("pointerup", function(pointer) {
       movePlayer(this.me, pointer.x, pointer.y, this);
     }, this);
-
-    // move player to position on click
-  }
-
-  update() {
-    updatePlayer(this.me);
   }
 }
 
