@@ -1,3 +1,4 @@
+import connect from './multiplayer/connect.js'
 import createPlayer from './player/create.js'
 import movePlayer from './player/move.js'
 import preloadMessageAssets from './messages/preload.js'
@@ -24,7 +25,8 @@ class World extends Phaser.Scene {
       },
       this
     );
-
+    this.otherPlayers = {};
+    this.connection = connect(this);
     this.input.on("pointerup", function(pointer) {
       movePlayer(this.me, pointer.x, pointer.y, this);
     }, this);
