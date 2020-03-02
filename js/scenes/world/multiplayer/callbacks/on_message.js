@@ -1,3 +1,4 @@
+import createOther from '../../player/create_other.js'
 import createPlayer from '../../player/create.js'
 import findPlayer from '../../player/find.js'
 import movePlayer from '../../player/move.js'
@@ -11,17 +12,10 @@ export default function(e, scene) {
   console.log("message from other player...");
   console.log(player, action, message);
   if (action === "exit") {
-    console.log("other player exiting...");
     delete scene.otherPlayers[message.connectionId];
     player.destroy();
   } else if (action === "join") {
-    console.log("other player joining...");
-    scene.otherPlayers[message.connectionId] = createPlayer(
-      (pointer, localX, localY, event, player, scene) => {
-        touchOther(player, scene);
-      },
-      scene
-    );
+    createOther(message.connectionId, scene);
   } else if (action === "move") {
     // movePlayer(
     //   player,
