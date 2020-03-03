@@ -32,7 +32,6 @@ class World extends Phaser.Scene {
         );
       });
     });
-    console.log(this.otherPlayers);
     this.me = createPlayer(
       (pointer, localX, localY, event, player, scene) => {
         touchSelf(player, this);
