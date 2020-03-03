@@ -5,6 +5,7 @@ import getConnections from './multiplayer/get_connection_ids.js'
 import movePlayer from './player/move.js'
 import preloadMessageAssets from './messages/preload.js'
 import preloadPlayerAssets from './player/preload.js'
+import send from './multiplayer/send.js'
 import touchSelf from './player/touch_self.js'
 
 class World extends Phaser.Scene {
@@ -39,7 +40,20 @@ class World extends Phaser.Scene {
       this
     );
     this.input.on("pointerup", function(pointer) {
-      movePlayer(this.me, pointer.x, pointer.y, this);
+      movePlayer(
+        this.me,
+        pointer.x,
+        pointer.y,
+        this
+      );
+      send(
+        this.connection,
+        "move",
+        {
+          x: pointer.x,
+          y: pointer.y
+        }
+      );
     }, this);
     this.connection = connect(this);
   }

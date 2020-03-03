@@ -1,14 +1,15 @@
 import send from '../multiplayer/send.js'
 
 export default function(player, x, y, scene) {
-  send(
-    scene.connection,
-    "move",
-    {
-      x: x,
-      y: y
-    }
-  );
+  // this might be creating a loop
+  // send(
+  //   scene.connection,
+  //   "move",
+  //   {
+  //     x: x,
+  //     y: y
+  //   }
+  // );
   const distanceX = Math.abs(player.x - x);
   const distanceY = Math.abs(player.y - y);
   const distance = Phaser.Math.Distance.Between(

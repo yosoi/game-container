@@ -12,6 +12,7 @@ export default function(onPointerDown, scene, x = 0, y = 0) {
     );
   });
   player.setScale(3);
+  player.setOrigin(0,0);
   player.anims.play("frontIdle");
   player.setInteractive().on("pointerdown", function(pointer, localX, localY, event) {
     onPointerDown(pointer, localX, localY, event, player);

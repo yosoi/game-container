@@ -17,12 +17,12 @@ export default function(e, scene) {
   } else if (action === "join") {
     createOther(message.connectionId, scene, 0, 0);
   } else if (action === "move") {
-    // movePlayer(
-    //   player,
-    //   message.data.x,
-    //   message.data.y,
-    //   scene
-    // );
+    movePlayer(
+      player,
+      message.data.x,
+      message.data.y,
+      scene
+    );
   } else if (action === "poke") {
     // sayMessage(
     //   scene.me,
