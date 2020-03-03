@@ -15,7 +15,7 @@ export default function(e, scene) {
     delete scene.otherPlayers[message.connectionId];
     player.destroy();
   } else if (action === "join") {
-    createOther(message.connectionId, scene);
+    createOther(message.connectionId, scene, 0, 0);
   } else if (action === "move") {
     // movePlayer(
     //   player,

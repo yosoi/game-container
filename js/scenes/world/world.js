@@ -1,7 +1,7 @@
 import connect from './multiplayer/connect.js'
 import createOther from './player/create_other.js'
 import createPlayer from './player/create.js'
-import getConnectionIds from './multiplayer/get_connection_ids.js'
+import getConnections from './multiplayer/get_connection_ids.js'
 import movePlayer from './player/move.js'
 import preloadMessageAssets from './messages/preload.js'
 import preloadPlayerAssets from './player/preload.js'
@@ -21,8 +21,15 @@ class World extends Phaser.Scene {
 
   create() {
     this.otherPlayers = {};
-    getConnectionIds().then((connectionId) => {
-      createOther(connectionId, this);
+    getConnections().then((connections) => {
+      connections.forEach((connection, i) => {
+        createOther(
+          connection.connectionId,
+          this,
+          connection.x,
+          connection.y
+        );
+      });
     });
     console.log(this.otherPlayers);
     this.me = createPlayer(
